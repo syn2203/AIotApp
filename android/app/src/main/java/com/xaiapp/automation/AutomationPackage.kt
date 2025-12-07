@@ -1,4 +1,4 @@
-package com.aiotapp.automation
+package com.xaiapp.automation
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

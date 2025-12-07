@@ -1,4 +1,4 @@
-package com.aiotapp.automation
+package com.xaiapp.automation
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.GestureDescription

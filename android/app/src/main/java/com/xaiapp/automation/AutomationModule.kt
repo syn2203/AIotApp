@@ -1,4 +1,4 @@
-package com.aiotapp.automation
+package com.xaiapp.automation
 
 import android.content.Intent
 import android.provider.Settings

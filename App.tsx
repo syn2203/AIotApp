@@ -95,7 +95,7 @@ toast("自动化完成");`;
       setStatusText(
         enabled
           ? '无障碍服务已开启，可直接发送点击/滑动。'
-          : '无障碍未开启，点击“打开无障碍设置”并启用 AIotApp 自动化服务。',
+          : '无障碍未开启，点击“打开无障碍设置”并启用 XAIApp 自动化服务。',
       );
     } catch (error) {
       console.error('检查无障碍状态失败', error);
@@ -112,7 +112,7 @@ toast("自动化完成");`;
     setBusyAction('settings');
     try {
       await openAccessibilitySettings();
-      setStatusText('已跳转到无障碍设置，请启用 “AIotApp 自动化服务” 后返回。');
+      setStatusText('已跳转到无障碍设置，请启用 “XAIApp 自动化服务” 后返回。');
     } catch (error) {
       console.error('打开无障碍设置失败', error);
       setStatusText('无法打开无障碍设置，请手动前往 设置 > 无障碍。');
@@ -372,7 +372,7 @@ toast("自动化完成");`;
                 isDarkMode ? 'text-slate-300' : 'text-slate-700',
               )}
             >
-              Android 需要在系统中开启“AIotApp 自动化服务”才能执行跨应用点击、滑动、粘贴等操作。
+              Android 需要在系统中开启“XAIApp 自动化服务”才能执行跨应用点击、滑动、粘贴等操作。
             </Text>
             <View style={tw`flex-row gap-2`}>
               <TouchableOpacity
