@@ -16,6 +16,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import { Linking } from 'react-native';
 import {
   isServiceRunning,
   openAccessibilitySettings,
@@ -140,6 +141,31 @@ toast("自动化完成");`;
     } catch (error) {
       console.error('启动目标应用失败', error);
       setStatusText('启动失败，请确认包名或权限。');
+    } finally {
+      setBusyAction(null);
+    }
+  };
+
+  const handleOpenChromeYoutube = async () => {
+    if (!ensureAndroid()) {
+      return;
+    }
+    setBusyAction('openYoutube');
+    try {
+      const youtubeQuery = '硅谷101 视频';
+      const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(youtubeQuery)}`;
+      const chromeIntentUrl = `intent://${searchUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;end`;
+      const fallbackUrl = searchUrl;
+      const canUseIntent = await Linking.canOpenURL(chromeIntentUrl);
+      if (canUseIntent) {
+        await Linking.openURL(chromeIntentUrl);
+      } else {
+        await Linking.openURL(fallbackUrl);
+      }
+      setStatusText('已用 Chrome 打开 YouTube 并搜索“硅谷101 视频”，若未跳转请手动输入该搜索链接。');
+    } catch (error) {
+      console.error('打开 Chrome/YouTube 失败', error);
+      setStatusText('无法打开 Chrome 或 YouTube，请检查是否已安装 Chrome。');
     } finally {
       setBusyAction(null);
     }
@@ -438,6 +464,19 @@ toast("自动化完成");`;
               >
                 <Text style={tw`text-center text-white text-base font-semibold`}>
                   启动指定 App
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                disabled={anyBusy}
+                onPress={handleOpenChromeYoutube}
+                style={tw.style(
+                  'rounded-xl py-3 px-4',
+                  isDarkMode ? 'bg-amber-500' : 'bg-amber-600',
+                  anyBusy ? 'opacity-70' : undefined,
+                )}
+              >
+                <Text style={tw`text-center text-white text-base font-semibold`}>
+                  Chrome 打开并搜索 YouTube：硅谷101
                 </Text>
               </TouchableOpacity>
               <Text
